@@ -37,8 +37,27 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+function getValueByKey(table, value) {
+    return table[value];
+}
+
+function turnBinaryToMorse(table, str) {
+    let finalStr = "";
+    let strArr = [];
+    strArr = String(str).match(/.{1,10}/g);
+    for (let key in strArr) {
+        if (strArr[key] == "**********") {
+            finalStr += " ";
+            continue;
+        }
+        morse = strArr[key].replaceAll("11", "-").replaceAll("10", ".").replaceAll("0", "");
+        finalStr += getValueByKey(table, morse);
+    }
+    return finalStr;
+}
+
 function decode(expr) {
-    // write your solution here
+    return turnBinaryToMorse(MORSE_TABLE, expr);
 }
 
 module.exports = {
